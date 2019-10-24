@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 trait CrudAndView
 {
+    protected $perPage = 100;
     protected function getRouteReplace()
     {
         $routeName = \Request::route()->getName();
@@ -18,8 +19,9 @@ trait CrudAndView
     }
     public function index()
     {
+
         return view("crud.index", [
-            "collection" => $this->model::all(),
+            "collection" => $this->model::paginate($this->perPage),
             "name" => $this->name,
             "tab" => $this->tab,
             "route" => $this->getRouteReplace()
@@ -51,7 +53,12 @@ trait CrudAndView
         $model = new $this->model;
         foreach ($this->tab as $key => $item) {
 
-            $model->$key = $request->input($key);
+            $val = $request->input($key);
+            if (is_null($val)) {
+                $val = "";
+            }
+            $model->$key = $val;
+           // $model->$key = $request->input($key);
         }
         $model->save();
         return redirect()->route($this->getRouteReplace() . ".index");
@@ -64,8 +71,14 @@ trait CrudAndView
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        
+    { 
+        return view("crud.show", [
+
+            "name" => $this->name,
+            "tab" => $this->tab,
+            "row" => $this->model::find($id),
+            "route" => $this->getRouteReplace()
+        ]);
     }
 
     /**
@@ -80,7 +93,7 @@ trait CrudAndView
 
             "name" => $this->name,
             "tab" => $this->tab,
-            "row" => $this->model::where("id",$id)->first(),
+            "row" => $this->model::find($id),
             "route" => $this->getRouteReplace()
         ]);
     }
@@ -94,15 +107,17 @@ trait CrudAndView
      */
     public function update(Request $request, $id)
     {
-        $model = $this->model::where("id",$id)->first();
+        //dd($request);
+        $model = $this->model::find($id);
         foreach ($this->tab as $key => $item) {
-
-            $model->$key = $request->input($key);
+            $val = $request->input($key);
+            if (is_null($val)) {
+                $val = "";
+            }
+            $model->$key = $val;
         }
         $model->save();
         return redirect()->route($this->getRouteReplace() . ".index");
-    
-
     }
 
     /**
@@ -113,7 +128,7 @@ trait CrudAndView
      */
     public function destroy($id)
     {
-        $model=$this->model::where("id",$id)->first();
+        $model = $this->model::find($id);
         $model->delete();
         return redirect()->route($this->getRouteReplace() . ".index");
     }

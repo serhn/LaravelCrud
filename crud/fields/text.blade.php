@@ -3,7 +3,7 @@
     <div class="col-sm-10">
         <input type="text" class="form-control" name="{{$key}}" id="{{$key}}" 
         
-        {!!isset($row->$key)?'value="'.$row->$key.'"':''!!}
+        {!!isset($row->$key)?'value="'.htmlspecialchars($row->$key).'"':''!!}
         {!!isset($item["maxlength"])?'maxlength="'.$item["maxlength"].'"':''!!}
         {!!isset($item["placeholder"])?'placeholder="'.$item["placeholder"].'"':''!!}>
     </div>
