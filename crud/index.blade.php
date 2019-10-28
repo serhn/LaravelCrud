@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends($layout)
 @section('title', $name)
 
 @section('content')
@@ -63,7 +63,6 @@
 </div>
 {{ $collection->links() }}
 @endif
-@endsection
 <script>
   //svar route="{{}}"
   function editRow(e){
@@ -72,3 +71,4 @@
   }
   
 </script>
+@endsection

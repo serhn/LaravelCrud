@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 trait CrudAndView
 {
     protected $perPage = 100;
+    protected $layout="admin.startbootstrap-sb-admin-2.layouts.app";
     protected function getRouteReplace()
+    
     {
         $routeName = \Request::route()->getName();
         $regexp = "/\.(index|create|store|show|edit|update|destroy)$/i";
@@ -24,7 +26,8 @@ trait CrudAndView
             "collection" => $this->model::paginate($this->perPage),
             "name" => $this->name,
             "tab" => $this->tab,
-            "route" => $this->getRouteReplace()
+            "route" => $this->getRouteReplace(),
+            "layout"=>$this->layout
         ]);
     }
 
@@ -38,7 +41,8 @@ trait CrudAndView
         return view("crud.edit", [
             "name" => $this->name,
             "tab" => $this->tab,
-            "route" => $this->getRouteReplace()
+            "route" => $this->getRouteReplace(),
+            "layout"=>$this->layout
         ]);
     }
 
@@ -77,7 +81,8 @@ trait CrudAndView
             "name" => $this->name,
             "tab" => $this->tab,
             "row" => $this->model::find($id),
-            "route" => $this->getRouteReplace()
+            "route" => $this->getRouteReplace(),
+            "layout"=>$this->layout
         ]);
     }
 
@@ -94,7 +99,8 @@ trait CrudAndView
             "name" => $this->name,
             "tab" => $this->tab,
             "row" => $this->model::find($id),
-            "route" => $this->getRouteReplace()
+            "route" => $this->getRouteReplace(),
+            "layout"=>$this->layout
         ]);
     }
 
