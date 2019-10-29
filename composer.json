@@ -1,0 +1,13 @@
+{
+    "name": "serh/laravel-crud",
+    "description": "CRUD for tables laravel",
+    "license": "MIT",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Serh\\LaravelCrud\\LaravelCrudServiceProvider"
+            ]
+        }
+    }
+}

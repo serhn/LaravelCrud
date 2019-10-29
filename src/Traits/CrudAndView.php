@@ -22,7 +22,7 @@ trait CrudAndView
     public function index()
     {
 
-        return view("crud.index", [
+        return view("crud::index", [
             "collection" => $this->model::paginate($this->perPage),
             "name" => $this->name,
             "tab" => $this->tab,
@@ -38,7 +38,7 @@ trait CrudAndView
      */
     public function create()
     {
-        return view("crud.edit", [
+        return view("crud::edit", [
             "name" => $this->name,
             "tab" => $this->tab,
             "route" => $this->getRouteReplace(),
@@ -78,7 +78,7 @@ trait CrudAndView
      */
     public function show($id)
     {
-        return view("crud.show", [
+        return view("crud::show", [
 
             "name" => $this->name,
             "tab" => $this->tab,
@@ -96,7 +96,7 @@ trait CrudAndView
      */
     public function edit($id)
     {
-        return view("crud.edit", [
+        return view("crud::edit", [
 
             "name" => $this->name,
             "tab" => $this->tab,
