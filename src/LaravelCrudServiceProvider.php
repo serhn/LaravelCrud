@@ -26,12 +26,8 @@ class LaravelCrudServiceProvider extends ServiceProvider
         $this->publishes(
             [
                 __DIR__ . '/../resources/view/crud' => resource_path("views") . "/crud",
-            ]//,
-            //[
-            //    __DIR__ . '/../routes/admin.php' => base_path("routes") . "/admin.php",
-           // ]
+            ]
         );
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
     }
 }
