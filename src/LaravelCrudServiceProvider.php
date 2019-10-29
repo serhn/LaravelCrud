@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Serh\LaravelCrud;
 
 use Illuminate\Support\ServiceProvider;
 
