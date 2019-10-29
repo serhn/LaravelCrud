@@ -3,6 +3,11 @@
     "description": "CRUD for tables laravel",
     "license": "MIT",
     "require": {},
+    "autoload": {
+        "psr-4": {
+            "Serh\\LaravelCrud\\": "src/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
