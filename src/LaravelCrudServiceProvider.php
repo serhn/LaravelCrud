@@ -25,7 +25,7 @@ class LaravelCrudServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views/crud', 'crud');
         $this->publishes(
             [
-                __DIR__ . '/../resources/view/crud' => resource_path("views") . "/crud",
+                __DIR__ . '/../resources/views/crud' => resource_path("views") . "/crud",
             ]
         );
 
