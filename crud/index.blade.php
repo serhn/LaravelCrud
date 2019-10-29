@@ -65,6 +65,7 @@
 
 @endsection
 @section('scripts')
+@parent
 <script>
     //svar route="{{}}"
     function editRow(e){
