@@ -1,4 +1,5 @@
 @section("scripts")
+@parent
 <script>
     function sendRow(){
             document.getElementById('editRow').submit();
