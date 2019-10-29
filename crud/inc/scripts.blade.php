@@ -1,5 +1,6 @@
+@section("scripts")
 <script>
-        function sendRow(){
+    function sendRow(){
             document.getElementById('editRow').submit();
         return false;
         }
@@ -8,4 +9,5 @@
         document.getElementById('destroy').submit();
         return false;
         }
-    </script>
+</script>
+@endsection

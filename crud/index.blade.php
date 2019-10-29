@@ -17,8 +17,7 @@
       This week
     </button>
     --}}
-    <a class="btn btn-outline-primary" href="{{route($route.".create")}}" role="button" aria-pressed="false"><i
-        data-feather="plus"></i></a>
+    <a class="btn btn-outline-primary" href="{{route($route.".create")}}" role="button" aria-pressed="false"><i class="fas fa-plus"></i></a>
   </div>
 </div>
 @if(count($collection))
@@ -55,7 +54,7 @@
 
         @endforeach
         <td><a class="btn btn-primary" href="{{route($route.".edit",$item['id'])}}" role="button"
-            aria-pressed="false"><i data-feather="edit"></i></a></td>
+            aria-pressed="false"><i class="fas fa-edit"></i></a></td>
       </tr>
       @endforeach
     </tbody>
@@ -63,12 +62,15 @@
 </div>
 {{ $collection->links() }}
 @endif
+
+@endsection
+@section('scripts')
 <script>
-  //svar route="{{}}"
-  function editRow(e){
-    //alert(e.dataset.id)
-    document.location.href=e.dataset.url;
-  }
-  
-</script>
+    //svar route="{{}}"
+    function editRow(e){
+      //alert(e.dataset.id)
+      document.location.href=e.dataset.url;
+    }
+    
+  </script>
 @endsection
