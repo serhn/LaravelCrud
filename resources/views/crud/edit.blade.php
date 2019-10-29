@@ -20,7 +20,7 @@
     </button>
     --}}
 
-    @include("crud.inc.buttons")
+    @include("crud::inc.buttons")
 
   </div>
 </div>
@@ -33,7 +33,7 @@
   @if(isset($item['edit']) && $item['edit']==0)
   @continue
   @endif
-  @include('crud.fields.'.$item['type'])
+  @include('crud::fields.'.$item['type'])
   @endforeach
   {{ csrf_field() }}
 </form>
@@ -56,9 +56,9 @@
         </button>
         --}}
 
-    @include("crud.inc.buttons")
+    @include("crud::inc.buttons")
 
   </div>
 </div>
 @endsection
-@include('crud.inc.scripts')
+@include('crud::inc.scripts')

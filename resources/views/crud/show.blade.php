@@ -17,7 +17,7 @@
     </button>
     --}}
 
-            @include("crud.inc.buttons")
+            @include("crud::inc.buttons")
 
         </div>
     </div>
@@ -63,4 +63,4 @@
 </form>
 @endif
 @endsection
-@include('crud.inc.scripts')
+@include('crud::inc.scripts')
