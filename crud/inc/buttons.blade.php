@@ -12,7 +12,7 @@
                 class="fas fa-trash"></i></a>
 
 @endif
-@if(preg_match("/\.edit$/",\Request::route()->getName()))
+@if(preg_match("/(\.edit|\.create)$/",\Request::route()->getName()))
 
 <a onclick="return sendRow();" class="btn btn-outline-success" href="" role="button" aria-pressed="false"><i
                 class="fas fa-save"></i></a>

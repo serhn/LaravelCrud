@@ -63,3 +63,4 @@
 </form>
 @endif
 @endsection
+@include('crud.inc.scripts')

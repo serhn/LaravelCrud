@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 trait CrudAndView
 {
     protected $perPage = 100;
-    protected $layout="admin.startbootstrap-sb-admin-2.layouts.app";
+    protected $layout = "layouts.app";
     protected function getRouteReplace()
-    
+
     {
         $routeName = \Request::route()->getName();
         $regexp = "/\.(index|create|store|show|edit|update|destroy)$/i";
@@ -27,7 +27,7 @@ trait CrudAndView
             "name" => $this->name,
             "tab" => $this->tab,
             "route" => $this->getRouteReplace(),
-            "layout"=>$this->layout
+            "layout" => $this->layout
         ]);
     }
 
@@ -42,7 +42,7 @@ trait CrudAndView
             "name" => $this->name,
             "tab" => $this->tab,
             "route" => $this->getRouteReplace(),
-            "layout"=>$this->layout
+            "layout" => $this->layout
         ]);
     }
 
@@ -56,13 +56,15 @@ trait CrudAndView
     {
         $model = new $this->model;
         foreach ($this->tab as $key => $item) {
-
+            if (isset($item['edit']) && $item['edit'] == 0) {
+                continue;
+            }
             $val = $request->input($key);
             if (is_null($val)) {
                 $val = "";
             }
             $model->$key = $val;
-           // $model->$key = $request->input($key);
+            // $model->$key = $request->input($key);
         }
         $model->save();
         return redirect()->route($this->getRouteReplace() . ".index");
@@ -75,14 +77,14 @@ trait CrudAndView
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    { 
+    {
         return view("crud.show", [
 
             "name" => $this->name,
             "tab" => $this->tab,
             "row" => $this->model::find($id),
             "route" => $this->getRouteReplace(),
-            "layout"=>$this->layout
+            "layout" => $this->layout
         ]);
     }
 
@@ -100,7 +102,7 @@ trait CrudAndView
             "tab" => $this->tab,
             "row" => $this->model::find($id),
             "route" => $this->getRouteReplace(),
-            "layout"=>$this->layout
+            "layout" => $this->layout
         ]);
     }
 
@@ -116,6 +118,9 @@ trait CrudAndView
         //dd($request);
         $model = $this->model::find($id);
         foreach ($this->tab as $key => $item) {
+            if (isset($item['edit']) && $item['edit'] == 0) {
+                continue;
+            }
             $val = $request->input($key);
             if (is_null($val)) {
                 $val = "";
