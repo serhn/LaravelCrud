@@ -20,8 +20,8 @@
     <a class="btn btn-outline-primary" href="{{route($route.".create")}}" role="button" aria-pressed="false"><i class="fas fa-plus"></i></a>
   </div>
 </div>
-@if(count($collection))
 
+@if(count($collection))
 
 
 <div class="table-responsive">
@@ -53,7 +53,7 @@
         
 
         @endforeach
-        <td><a class="btn btn-primary" href="{{route($route.".edit",$item['id'])}}" role="button"
+        <td class="text-right"><a class="btn btn-primary" href="{{route($route.".edit",$item['id'])}}" role="button"
             aria-pressed="false"><i class="fas fa-edit"></i></a></td>
       </tr>
       @endforeach

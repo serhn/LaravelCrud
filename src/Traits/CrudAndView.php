@@ -21,7 +21,6 @@ trait CrudAndView
     }
     public function index()
     {
-
         return view("crud::index", [
             "collection" => $this->model::paginate($this->perPage),
             "name" => $this->name,
@@ -67,7 +66,8 @@ trait CrudAndView
             // $model->$key = $request->input($key);
         }
         $model->save();
-        return redirect()->route($this->getRouteReplace() . ".index");
+        
+        return redirect()->route($this->getRouteReplace() . ".show",$model->id);
     }
 
     /**
@@ -128,7 +128,7 @@ trait CrudAndView
             $model->$key = $val;
         }
         $model->save();
-        return redirect()->route($this->getRouteReplace() . ".index");
+        return redirect()->route($this->getRouteReplace() . ".show",$id);
     }
 
     /**

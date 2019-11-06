@@ -45,7 +45,7 @@
                     @if($col['type']=="select")
                     <td>{{$col['options'][$rowArray[$key]]}}</td>
                     @else
-                    <td>{{$rowArray[$key]}}</td>
+                    <td>{!!$rowArray[$key]!!}</td>
                     @endif
                 </tr>
                 @endforeach
