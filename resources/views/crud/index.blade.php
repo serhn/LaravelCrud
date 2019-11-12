@@ -17,7 +17,8 @@
       This week
     </button>
     --}}
-    <a class="btn btn-outline-primary" href="{{route($route.".create")}}" role="button" aria-pressed="false"><i class="fas fa-plus"></i></a>
+    <a class="btn btn-outline-primary" href="{{route($route.".create")}}" role="button" aria-pressed="false"><i
+        class="fas fa-plus"></i></a>
   </div>
 </div>
 
@@ -47,10 +48,17 @@
         @endif
         @if($col['type']=="select")
         <td>{{$col['options'][$item->$key]}}</td>
+        @elseif($col['type']=="img")
+        <td><img height="{{$col['height']}}" width="{{$col['width']}}" src="{{$col['path']}}{{$item->$key}}"></td>
+        @else
+        @if(isset($col['relations']))
+        @php $relations=$col['relations'] @endphp
+        <td>{!!$item->$relations->$key!!}</td>
         @else
         <td>{!!$item->$key!!}</td>
         @endif
-        
+        @endif
+
 
         @endforeach
         <td class="text-right"><a class="btn btn-primary" href="{{route($route.".edit",$item['id'])}}" role="button"
@@ -67,11 +75,11 @@
 @section('scripts')
 @parent
 <script>
-    //svar route="{{}}"
+  //svar route="{{}}"
     function editRow(e){
       //alert(e.dataset.id)
       document.location.href=e.dataset.url;
     }
     
-  </script>
+</script>
 @endsection

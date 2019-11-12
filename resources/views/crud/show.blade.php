@@ -43,7 +43,11 @@
                 <tr>
                     <td>{{$col['name']}}</td>
                     @if($col['type']=="select")
+
                     <td>{{$col['options'][$rowArray[$key]]}}</td>
+                    @elseif($col['type']=="img")
+                    <td><img height="{{$col['height']}}" width="{{$col['width']}}"
+                            src="{{$col['path']}}{{$rowArray[$key]}}"></td>
                     @else
                     <td>{!!$rowArray[$key]!!}</td>
                     @endif

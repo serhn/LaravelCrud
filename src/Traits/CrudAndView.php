@@ -55,7 +55,11 @@ trait CrudAndView
     {
         $model = new $this->model;
         foreach ($this->tab as $key => $item) {
-            if (isset($item['edit']) && $item['edit'] == 0) {
+            if ((isset($item['edit']) && $item['edit'] == 0) ||
+                isset($item['relations']) ||
+                $item['type'] == "img"
+
+            ) {
                 continue;
             }
             $val = $request->input($key);
@@ -66,8 +70,10 @@ trait CrudAndView
             // $model->$key = $request->input($key);
         }
         $model->save();
-        
-        return redirect()->route($this->getRouteReplace() . ".show",$model->id);
+        if (method_exists($this, "afterStore")) {
+            $this->afterStore();
+        }
+        return redirect()->route($this->getRouteReplace() . ".show", $model->id);
     }
 
     /**
@@ -118,7 +124,10 @@ trait CrudAndView
         //dd($request);
         $model = $this->model::find($id);
         foreach ($this->tab as $key => $item) {
-            if (isset($item['edit']) && $item['edit'] == 0) {
+            if ((isset($item['edit']) && $item['edit'] == 0)
+                || isset($item['relations']) ||
+                $item['type'] == "img"
+            ) {
                 continue;
             }
             $val = $request->input($key);
@@ -128,7 +137,10 @@ trait CrudAndView
             $model->$key = $val;
         }
         $model->save();
-        return redirect()->route($this->getRouteReplace() . ".show",$id);
+        if (method_exists($this, "afterUpdate")) {
+            $this->afterUpdate();
+        }
+        return redirect()->route($this->getRouteReplace() . ".show", $id);
     }
 
     /**
