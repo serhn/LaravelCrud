@@ -2,7 +2,6 @@
 @section('title', $name)
 
 @section('content')
-
 <h2 class="mt-2"></h2>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
   <h1 class="h2">{{$name}}</h1>
@@ -29,19 +28,25 @@
   <table class="table table-striped table-sm table-hover crud-table">
     <thead>
       <tr>
-
+        @if(count($tab))
         @foreach ($tab as $col)
         @if(isset($col['tab']) && $col['tab']==0)
         @continue
         @endif
         <th>{{$col['name']}}</th>
         @endforeach
+        @else
+        @foreach ($collection[0]->toArray() as $key=>$itemRow)
+        <th>{{$key}}</th>
+        @endforeach
+        @endif
         <th> - </th>
       </tr>
     </thead>
     <tbody>
       @foreach ($collection as $item)
       <tr data-url="{{route($route.".show",$item['id'])}}" {{--data-id="{{$item['id']}}" --}} onclick="editRow(this)">
+        @if(count($tab))
         @foreach ($tab as $key=>$col)
         @if(isset($col['tab']) && $col['tab']==0)
         @continue
@@ -58,9 +63,12 @@
         <td>{!!$item->$key!!}</td>
         @endif
         @endif
-
-
         @endforeach
+        @else
+        @foreach ($collection[0]->toArray() as $key=>$itemRow)
+        <td>{{$itemRow}}</td>
+        @endforeach
+        @endif
         <td class="text-right"><a class="btn btn-primary" href="{{route($route.".edit",$item['id'])}}" role="button"
             aria-pressed="false"><i class="fas fa-edit"></i></a></td>
       </tr>
