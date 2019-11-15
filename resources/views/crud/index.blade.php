@@ -66,7 +66,7 @@
         @endforeach
         @else
         @foreach ($collection[0]->toArray() as $key=>$itemRow)
-        <td>{{$itemRow}}</td>
+        <td>{!!$item->$key!!}</td>
         @endforeach
         @endif
         <td class="text-right"><a class="btn btn-primary" href="{{route($route.".edit",$item['id'])}}" role="button"
