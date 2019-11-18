@@ -3,6 +3,7 @@
 namespace Serh\LaravelCrud\Traits;
 
 use Illuminate\Http\Request;
+use Validator;
 
 trait CrudAndView
 {
@@ -21,8 +22,18 @@ trait CrudAndView
     }
     public function index()
     {
+
+        $search=request()->input("q");
+        $model=new $this->model;
+        if($search){
+            foreach($this->tab as $key=>$item){
+                $model=$model->orWhere($key, 'like', '%'.$search.'%');
+            }
+            //dd($search);
+        }
+        
         return view("crud::index", [
-            "collection" => $this->model::paginate($this->perPage),
+            "collection" => $model->paginate($this->perPage),
             "name" => $this->name,
             "tab" => $this->tab,
             "route" => $this->getRouteReplace(),
@@ -53,6 +64,11 @@ trait CrudAndView
      */
     public function store(Request $request)
     {
+
+        Validator::make(
+            $request->all(),
+            $this->getValidate(),
+        )->validate();
         $model = new $this->model;
         foreach ($this->tab as $key => $item) {
             if ((isset($item['edit']) && $item['edit'] == 0) ||
@@ -67,7 +83,7 @@ trait CrudAndView
                 if (strlen($val) < 8) {
                     continue;
                 }
-                
+
                 $val = bcrypt($val);
             }
             if (is_null($val)) {
@@ -128,7 +144,11 @@ trait CrudAndView
      */
     public function update(Request $request, $id)
     {
-        //dd($request);
+        //dd($reques);
+        Validator::make(
+            $request->all(),
+            $this->getValidate($id),
+        )->validate();
         $model = $this->model::find($id);
         foreach ($this->tab as $key => $item) {
             if ((isset($item['edit']) && $item['edit'] == 0)
@@ -142,7 +162,7 @@ trait CrudAndView
                 if (strlen($val) < 8) {
                     continue;
                 }
-                
+
                 $val = bcrypt($val);
             }
             if (is_null($val)) {
@@ -168,5 +188,23 @@ trait CrudAndView
         $model = $this->model::find($id);
         $model->delete();
         return redirect()->route($this->getRouteReplace() . ".index");
+    }
+
+    private function getValidate($id=0)
+    {
+        $aValidate = [];
+        foreach ($this->tab as $key => $val) {
+            if (isset($val['validate'])) {
+                $aValidate[$key] = $val['validate'];
+            }
+            if (isset($val['validateCreate'])  && $id=="0") {
+                $aValidate[$key] = ((empty($aValidate[$key])) ? "" : $aValidate[$key] . "|") . $val['validateCreate'];
+            }
+
+            if (isset($val['validateUpdate']) && $id!="0") {
+                $aValidate[$key] = ((empty($aValidate[$key])) ? "" : $aValidate[$key] . "|") . str_replace(":id",$id,$val['validateUpdate']);
+            }
+        }
+        return $aValidate;
     }
 }

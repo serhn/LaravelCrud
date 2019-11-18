@@ -4,9 +4,14 @@
         <div class="input-group-prepend">
             <div class="input-group-text">{{$item["pref"]}}</div>
         </div>
-        <input type="text" class="form-control" name="{{$key}}" id="{{$key}}"
-            {!!isset($row->$key)?'value="'.htmlspecialchars($row->$key).'"':''!!}
+        <input type="text" class="form-control @error($key) is-invalid @enderror" name="{{$key}}" id="{{$key}}"
+            value="{{old($key,isset($item->key)?$item->key:null)}}"
         {!!isset($item["maxlength"])?'maxlength="'.$item["maxlength"].'"':''!!}
         {!!isset($item["placeholder"])?'placeholder="'.$item["placeholder"].'"':''!!}>
+        @error($key)
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 </div>
