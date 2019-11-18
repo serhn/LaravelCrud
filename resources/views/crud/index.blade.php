@@ -22,7 +22,7 @@
 </div>
 <div class="">
     <form method="GET" class="w-100 d-flex">
-      <input name="q" class="form-control form-control-dark" type="text" placeholder="Поиск"
+      <input name="q" autofocus="autofocus" class="form-control form-control-dark" type="text" placeholder="Поиск"
     aria-label="Поиск" value="{{Request::input('q')}}">
       <button data-section="europe" type="submit" class="btn btn-primary ml-1">
         <i class="fas fas fa-search"></i>
