@@ -63,6 +63,13 @@ trait CrudAndView
                 continue;
             }
             $val = $request->input($key);
+            if ($item['type'] == "password") {
+                if (strlen($val) < 8) {
+                    continue;
+                }
+                
+                $val = bcrypt($val);
+            }
             if (is_null($val)) {
                 $val = "";
             }
@@ -131,6 +138,13 @@ trait CrudAndView
                 continue;
             }
             $val = $request->input($key);
+            if ($item['type'] == "password") {
+                if (strlen($val) < 8) {
+                    continue;
+                }
+                
+                $val = bcrypt($val);
+            }
             if (is_null($val)) {
                 $val = "";
             }
