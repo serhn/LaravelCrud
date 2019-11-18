@@ -5,7 +5,7 @@
             <div class="input-group-text">{{$item["pref"]}}</div>
         </div>
         <input type="text" class="form-control @error($key) is-invalid @enderror" name="{{$key}}" id="{{$key}}"
-            value="{{old($key,isset($item->key)?$item->key:null)}}"
+        value="{{old($key,@$row->$key)}}"
         {!!isset($item["maxlength"])?'maxlength="'.$item["maxlength"].'"':''!!}
         {!!isset($item["placeholder"])?'placeholder="'.$item["placeholder"].'"':''!!}>
         @error($key)
