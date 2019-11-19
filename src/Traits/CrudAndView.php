@@ -67,7 +67,7 @@ trait CrudAndView
 
         Validator::make(
             $request->all(),
-            $this->getValidate(),
+            $this->getValidate()
         )->validate();
         $model = new $this->model;
         foreach ($this->tab as $key => $item) {
@@ -147,7 +147,7 @@ trait CrudAndView
         //dd($reques);
         Validator::make(
             $request->all(),
-            $this->getValidate($id),
+            $this->getValidate($id)
         )->validate();
         $model = $this->model::find($id);
         foreach ($this->tab as $key => $item) {
