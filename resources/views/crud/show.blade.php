@@ -67,4 +67,7 @@
 </form>
 @endif
 @endsection
+@section('scripts')
+@parent
 @include('crud::inc.scripts')
+@endsection

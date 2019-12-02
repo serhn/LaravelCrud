@@ -6,9 +6,9 @@
         return false;
         }
         function deleteRow(){
-            if(confirm("Удалить эту запись?"))
+            //if(confirm("Удалить эту запись?"))
         document.getElementById('destroy').submit();
-        return false;
+        //return false;
         }
 </script>
 @endsection

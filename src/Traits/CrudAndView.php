@@ -144,7 +144,7 @@ trait CrudAndView
      */
     public function update(Request $request, $id)
     {
-        //dd($reques);
+        
         Validator::make(
             $request->all(),
             $this->getValidate($id)

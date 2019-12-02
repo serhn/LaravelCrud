@@ -8,8 +8,9 @@
 <a class="btn btn-outline-dark" href="{{route($route.".show",$row->id)}}" role="button" aria-pressed="false"><i
                 class="fas fa-eye"></i></a>
 @endif
-<a onclick="return deleteRow();" class="btn btn-outline-danger" href="" role="button" aria-pressed="false"><i
+<a data-toggle="modal" data-target="#modalConfirm" class="btn btn-outline-danger" href="" role="button" aria-pressed="false"><i
                 class="fas fa-trash"></i></a>
+                @include("crud::inc.modalDelete")
 
 @endif
 @if(preg_match("/(\.edit|\.create)$/",\Request::route()->getName()))
