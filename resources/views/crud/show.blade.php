@@ -37,7 +37,9 @@
                 {{--@foreach ($row->toArray() as $key=>$item)--}}
                 @php $rowArray=$row->toArray() @endphp
                 @foreach ($tab as $key=>$col)
-                @if(empty($rowArray[$key]))
+                @if(empty($rowArray[$key]) &&
+                $col['type']!="link"
+                )
                 @continue
                 @endif
                 <tr>
@@ -48,6 +50,11 @@
                     @elseif($col['type']=="img")
                     <td><img height="{{$col['height']}}" width="{{$col['width']}}"
                             src="{{$col['path']}}{{$rowArray[$key]}}"></td>
+                    @elseif($col['type']=="link")
+                    @php
+                    $routeValParthe=explode("|",$col['route']);
+                    @endphp
+                    <td><a href="{!!route($routeValParthe[0],$rowArray[$routeValParthe[1]])!!}">{{$col['nameLink']}}</a></td>
                     @else
                     <td>{!!$rowArray[$key]!!}</td>
                     @endif
