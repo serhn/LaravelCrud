@@ -20,6 +20,7 @@
         class="fas fa-plus"></i></a>
   </div>
 </div>
+{!! $contentListHeader ?? "" !!}
 <div class="">
   <form method="GET" class="w-100 d-flex">
     <input name="q" autofocus="autofocus" class="form-control form-control-dark" type="text" placeholder="Поиск"
@@ -53,7 +54,7 @@
     </thead>
     <tbody>
       @foreach ($collection as $item)
-      <tr data-url="{{route($route.".show",$item['id'])}}" {{--data-id="{{$item['id']}}" --}} onclick="editRow(this)">
+      <tr data-url="{{route($route.".show",$item['id'])}}" {{--data-id="{{$item['id']}}" --}}>
         @if(count($tab))
         @foreach ($tab as $key=>$col)
         @if(isset($col['tab']) && $col['tab']==0)
@@ -63,12 +64,21 @@
         <td>{{$col['options'][$item->$key]}}</td>
         @elseif($col['type']=="img")
         <td><img height="{{$col['height']}}" width="{{$col['width']}}" src="{{$col['path']}}{{$item->$key}}"></td>
+        @elseif($col['type']=="link")
+        @php
+        $routeValParthe=explode("|",$col['route']);
+        $keyRoute1=$routeValParthe[1];
+        @endphp
+        <td><a {{$col['target']?'target="'.$col['target'].'"':""}}
+            href="{!!route($routeValParthe[0],$item->$keyRoute1)!!}">{!!$col['innerHTML']!!}</a></td>
+        @elseif($col['type']=="custom")
+        <td>{!!str_replace('":id"',$item['id'],$col['innerHTML'])!!}</td>
         @else
         @if(isset($col['relations']))
         @php $relations=$col['relations'] @endphp
-        <td>{!!$item->$relations->$key!!}</td>
+        <td class="clicable">{!!$item->$relations->$key!!}</td>
         @else
-        <td>{!!$item->$key!!}</td>
+        <td class="clicable">{!!$item->$key!!}</td>
         @endif
         @endif
         @endforeach
@@ -86,16 +96,23 @@
 </div>
 {{ $collection->links() }}
 @endif
-
+{!! $contentListFooter ?? "" !!}
 @endsection
 @section('scripts')
 @parent
 <script>
-  //svar route="{{}}"
-    function editRow(e){
-      //alert(e.dataset.id)
-      document.location.href=e.dataset.url;
+  var classname=document.getElementsByClassName("clicable");
+   for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', editRow, false);
+   } 
+   function editRow(e){
+    document.location.href=e.originalTarget.parentElement.dataset.url
     }
     
 </script>
+<style>
+  .clicable {
+    cursor: pointer;
+  }
+</style>
 @endsection

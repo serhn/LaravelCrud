@@ -54,7 +54,7 @@
                     @php
                     $routeValParthe=explode("|",$col['route']);
                     @endphp
-                    <td><a href="{!!route($routeValParthe[0],$rowArray[$routeValParthe[1]])!!}">{{$col['nameLink']}}</a></td>
+                    <td><a {{$col['target']?'target="'.$col['target'].'"':""}} href="{!!route($routeValParthe[0],$rowArray[$routeValParthe[1]])!!}">{!!$col['innerHTML']!!}</a></td>
                     @else
                     <td>{!!$rowArray[$key]!!}</td>
                     @endif

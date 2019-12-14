@@ -9,7 +9,11 @@ trait CrudAndView
 {
     protected $perPage = 100;
     protected $layout = "layouts.app";
+    protected $contentListHeader;
+    private $contentListFooter;
+
     protected function getRouteReplace()
+    
 
     {
         $routeName = \Request::route()->getName();
@@ -27,6 +31,9 @@ trait CrudAndView
         $model=new $this->model;
         if($search){
             foreach($this->tab as $key=>$item){
+                if(@$item["search"]===0) {
+                    continue;
+                }
                 $model=$model->orWhere($key, 'like', '%'.$search.'%');
             }
             //dd($search);
@@ -37,7 +44,11 @@ trait CrudAndView
             "name" => $this->name,
             "tab" => $this->tab,
             "route" => $this->getRouteReplace(),
-            "layout" => $this->layout
+            "layout" => $this->layout,
+            "contentListHeader" =>$this->contentListHeader,
+            "contentListFooter" =>$this->contentListFooter
+            
+            
         ]);
     }
 
