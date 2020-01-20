@@ -62,7 +62,7 @@
 </div>
 
 @endsection
-@section('scripts')
+@section('script')
 @parent
-@include('crud::inc.scripts')
+@include('crud::inc.script')
 @endsection

@@ -1,4 +1,4 @@
-@section("scripts")
+@section("script")
 @parent
 <script>
     function sendRow(){

@@ -98,7 +98,7 @@
 @endif
 {!! $contentListFooter ?? "" !!}
 @endsection
-@section('scripts')
+@section('script')
 @parent
 <script>
   var classname=document.getElementsByClassName("clicable");
