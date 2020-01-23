@@ -30,8 +30,11 @@
 
   @endif
   @foreach ($tab as $key=>$item)
+  
   @if(isset($item['edit']) && $item['edit']==0)
   @continue
+  @elseif($item['type']=="checked")
+      @continue
   @endif
   @include('crud::fields.'.$item['type'])
   @endforeach

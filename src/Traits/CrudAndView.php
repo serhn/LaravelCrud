@@ -9,7 +9,7 @@ trait CrudAndView
 {
     protected $perPage = 100;
     protected $layout = "layouts.app";
-    protected $contentListHeader;
+    private $contentListHeader;
     private $contentListFooter;
 
     protected function getRouteReplace()
@@ -217,5 +217,13 @@ trait CrudAndView
             }
         }
         return $aValidate;
+    }
+    private function setContentListHeader($content)
+    {
+        $this->contentListHeader = $content;
+    }
+    private function setContentListFooter($content)
+    {
+        $this->contentListFooter = $content;
     }
 }

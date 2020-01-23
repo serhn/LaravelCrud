@@ -55,6 +55,8 @@
                     $routeValParthe=explode("|",$col['route']);
                     @endphp
                     <td><a {{$col['target']?'target="'.$col['target'].'"':""}} href="{!!route($routeValParthe[0],$rowArray[$routeValParthe[1]])!!}">{!!$col['innerHTML']!!}</a></td>
+                    @elseif($col['type']=="checked")
+                    @continue
                     @else
                     <td>{!!$rowArray[$key]!!}</td>
                     @endif

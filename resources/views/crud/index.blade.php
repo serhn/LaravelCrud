@@ -41,8 +41,11 @@
         @foreach ($tab as $col)
         @if(isset($col['tab']) && $col['tab']==0)
         @continue
+        @elseif($col['type']=="checked")
+        <th><input class="crud-select-unselect" type="checkbox" /></th>
+        @else
+        <th>{!!$col['name']!!}</th>
         @endif
-        <th>{{$col['name']}}</th>
         @endforeach
         @else
         @foreach ($collection[0]->toArray() as $key=>$itemRow)
@@ -62,6 +65,8 @@
         @endif
         @if($col['type']=="select")
         <td>{{$col['options'][$item->$key]}}</td>
+        @elseif($col['type']=="checked")
+        <td><input class="crud-selected" type="checkbox" name="crudChecked[]" value="{{$item->id}}" /></td>
         @elseif($col['type']=="img")
         <td><img height="{{$col['height']}}" width="{{$col['width']}}" src="{{$col['path']}}{{$item->$key}}"></td>
         @elseif($col['type']=="link")
@@ -101,6 +106,7 @@
 @section('script')
 @parent
 <script>
+  /*start basic functions */
   var classname=document.getElementsByClassName("clicable");
    for (var i = 0; i < classname.length; i++) {
     classname[i].addEventListener('click', editRow, false);
@@ -108,7 +114,49 @@
    function editRow(e){
     document.location.href=e.originalTarget.parentElement.dataset.url
     }
+   /*end basic function */
     
+   /*start checked */
+   var aCrudSelect=[]
+  document.addEventListener("DOMContentLoaded", function (event) {
+    
+    document.getElementsByClassName("crud-select-unselect")[0].addEventListener('change', selectUnselect, false);
+
+    var classname=document.getElementsByClassName("crud-selected");
+    //var classname=document.querySelector("input[name=checkbox]");
+
+    for (var i = 0; i < classname.length; i++) {
+
+      classname[i].addEventListener('change', selectRowCrud, false);
+   } 
+  
+
+  function selectUnselect(e){
+    var classname=document.getElementsByClassName("crud-selected");
+    //var classname=document.querySelector("input[name=checkbox]");
+
+    for (var i = 0; i < classname.length; i++) {
+
+      classname[i].checked=!classname[i].checked
+   } 
+   selectRowCrud(e)
+  }
+  function selectRowCrud(e){
+    aCrudSelect=[]
+     for (var i = 0; i < classname.length; i++) {
+       if(classname[i].checked){
+         //alert(classname[i].value);   
+         aCrudSelect.push(classname[i].value)
+       }
+     }   
+     if(callBackCrudChecked && typeof callBackCrudChecked === "function") {
+      callBackCrudChecked(aCrudSelect);
+     }
+
+  }
+
+})
+   /*end checked */
 </script>
 <style>
   .clicable {
